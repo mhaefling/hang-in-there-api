@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-17T20:55:55-07:00">2024-12-17T20:55:55-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-18T13:22:24-07:00">2024-12-18T13:22:24-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -116,7 +116,7 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#c73f2d4de4d945b81cc4d31df3cb86efd017899c" class="src_link" title="app/serializers/poster_serializer.rb">app/serializers/poster_serializer.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">21</td>
+            <td class="cell--number">26</td>
             <td class="cell--number">6</td>
             <td class="cell--number">6</td>
             <td class="cell--number">0</td>
@@ -355,7 +355,7 @@
 
             
 
-            <code class="ruby">    render json: PosterSerializer.format_poster(poster)</code>
+            <code class="ruby">    render json: {data: PosterSerializer.format_poster(poster)}</code>
           </li>
         </div>
       
@@ -745,12 +745,22 @@
 
             
 
+            <code class="ruby">    { data:</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="4">
+            
+
+            
+
             <code class="ruby">    posters.map do |poster|</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="4">
+          <li class="covered" data-hits="3" data-linenumber="5">
             
               <span class="hits">3</span>
             
@@ -762,22 +772,12 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
-            
-
-            
-
-            <code class="ruby">    end</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="never" data-hits="" data-linenumber="6">
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    end,</code>
           </li>
         </div>
       
@@ -787,12 +787,62 @@
 
             
 
+            <code class="ruby">    meta: {</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="8">
+            
+
+            
+
+            <code class="ruby">      count: posters.count</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
+            
+
+            
+
+            <code class="ruby">    }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
+            
+
+            
+
+            <code class="ruby">    }</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="11">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="12">
+            
+
+            
+
             <code class="ruby"></code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
+          <li class="covered" data-hits="1" data-linenumber="13">
             
               <span class="hits">1</span>
             
@@ -804,7 +854,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="9">
+          <li class="never" data-hits="" data-linenumber="14">
             
 
             
@@ -814,7 +864,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="5" data-linenumber="10">
+          <li class="covered" data-hits="5" data-linenumber="15">
             
               <span class="hits">5</span>
             
@@ -826,7 +876,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="11">
+          <li class="never" data-hits="" data-linenumber="16">
             
 
             
@@ -836,7 +886,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="12">
+          <li class="never" data-hits="" data-linenumber="17">
             
 
             
@@ -846,7 +896,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="13">
+          <li class="never" data-hits="" data-linenumber="18">
             
 
             
@@ -856,7 +906,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="14">
+          <li class="never" data-hits="" data-linenumber="19">
             
 
             
@@ -866,7 +916,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="15">
+          <li class="never" data-hits="" data-linenumber="20">
             
 
             
@@ -876,7 +926,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="16">
+          <li class="never" data-hits="" data-linenumber="21">
             
 
             
@@ -886,7 +936,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="17">
+          <li class="never" data-hits="" data-linenumber="22">
             
 
             
@@ -896,7 +946,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="18">
+          <li class="never" data-hits="" data-linenumber="23">
             
 
             
@@ -906,7 +956,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="19">
+          <li class="never" data-hits="" data-linenumber="24">
             
 
             
@@ -916,7 +966,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="20">
+          <li class="never" data-hits="" data-linenumber="25">
             
 
             
@@ -926,7 +976,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="21">
+          <li class="never" data-hits="" data-linenumber="26">
             
 
             

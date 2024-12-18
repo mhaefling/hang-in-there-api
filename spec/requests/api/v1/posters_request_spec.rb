@@ -33,36 +33,35 @@ describe "Unmotivational Posters API", type: :request do
     expect(response).to be_successful
 
     posters = JSON.parse(response.body, symbolize_names: true)
-
-    expect(posters.count).to eq(3)
-
-    posters.each do |poster|
+    expect(posters[:data].count).to eq(3)
+    
+    posters[:data].each do |poster|
       expect(poster).to have_key(:id)
       expect(poster[:id]).to be_an(Integer)
-
+      
       expect(poster).to have_key(:type)
       expect(poster[:type]).to be_an(String)
-
+      
       expect(poster).to have_key(:attributes)
       expect(poster[:attributes]).to be_an(Hash)
-
+      
       expect(poster[:attributes]).to have_key(:name)
       expect(poster[:attributes][:name]).to be_a(String)
-
+      
       expect(poster[:attributes]).to have_key(:price)
       expect(poster[:attributes][:price]).to be_a(Float)
-
+      
       expect(poster[:attributes]).to have_key(:year)
       expect(poster[:attributes][:year]).to be_a(Integer)
-
+      
       expect(poster[:attributes]).to have_key(:vintage)
       expect(poster[:attributes][:vintage]).to be_in([true, false])
-
+      
       expect(poster[:attributes]).to have_key(:img_url)
       expect(poster[:attributes][:img_url]).to be_a(String)
     end
   end
-
+  
   it "can send a poster by its id" do
     id = Poster.create(
       name: "DEFEAT",
@@ -71,36 +70,37 @@ describe "Unmotivational Posters API", type: :request do
       year: 2023,
       vintage: false,
       img_url:  "./assets/defeat.jpg").id
-
+      
       get "/api/v1/posters/#{id}"
-
+      
       poster = JSON.parse(response.body, symbolize_names: true)
-
+      
       expect(response).to be_successful
+      
+      test_poster = poster[:data]
+      expect(test_poster).to have_key(:id)
+      expect(test_poster[:id]).to be_an(Integer)
 
-      expect(poster).to have_key(:id)
-      expect(poster[:id]).to be_an(Integer)
+      expect(test_poster).to have_key(:type)
+      expect(test_poster[:type]).to be_an(String)
 
-      expect(poster).to have_key(:type)
-      expect(poster[:type]).to be_an(String)
+      expect(test_poster).to have_key(:attributes)
+      expect(test_poster[:attributes]).to be_an(Hash)
 
-      expect(poster).to have_key(:attributes)
-      expect(poster[:attributes]).to be_an(Hash)
+      expect(test_poster[:attributes]).to have_key(:name)
+      expect(test_poster[:attributes][:name]).to be_a(String)
 
-      expect(poster[:attributes]).to have_key(:name)
-      expect(poster[:attributes][:name]).to be_a(String)
+      expect(test_poster[:attributes]).to have_key(:price)
+      expect(test_poster[:attributes][:price]).to be_a(Float)
 
-      expect(poster[:attributes]).to have_key(:price)
-      expect(poster[:attributes][:price]).to be_a(Float)
+      expect(test_poster[:attributes]).to have_key(:year)
+      expect(test_poster[:attributes][:year]).to be_a(Integer)
 
-      expect(poster[:attributes]).to have_key(:year)
-      expect(poster[:attributes][:year]).to be_a(Integer)
+      expect(test_poster[:attributes]).to have_key(:vintage)
+      expect(test_poster[:attributes][:vintage]).to be_in([true, false])
 
-      expect(poster[:attributes]).to have_key(:vintage)
-      expect(poster[:attributes][:vintage]).to be_in([true, false])
-
-      expect(poster[:attributes]).to have_key(:img_url)
-      expect(poster[:attributes][:img_url]).to be_a(String)
+      expect(test_poster[:attributes]).to have_key(:img_url)
+      expect(test_poster[:attributes][:img_url]).to be_a(String)
   end
 
   it "can create a new poster" do
