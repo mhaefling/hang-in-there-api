@@ -8,7 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Poster.create(
+Poster.destroy_all
+
+Poster.create!(
   name: "FAILURE", 
   description: "Why bother trying? It's probably not worth it.",
   price: 68.00,
@@ -16,7 +18,7 @@ Poster.create(
   vintage: true,
   img_url: "./assets/failure.jpg")
 
-Poster.create(
+Poster.create!(
   name: "MEDIOCRITY",
   description: "Dreams are just that—dreams.",
   price: 127.00,
@@ -24,7 +26,7 @@ Poster.create(
   vintage: false,
   img_url: "./assets/mediocrity.jpg")
 
-Poster.create(
+Poster.create!(
   name: "REGRET",
   description: "Hard work rarely pays off.",
   price: 89.00,
@@ -32,7 +34,7 @@ Poster.create(
   vintage: true,
   img_url:  "./assets/regret.jpg")
 
-Poster.create(
+Poster.create!(
   name: "FUTILITY",
   description: "You're not good enough.",
   price: 150.00,
@@ -40,10 +42,12 @@ Poster.create(
   vintage: false,
   img_url:  "./assets/futility.jpg")
 
-Poster.create(
+Poster.create!(
   name: "DEFEAT",
   description: "It's too late to start now.",
   price: 35.00,
   year: 2023,
   vintage: false,
   img_url:  "./assets/defeat.jpg")
+
+  puts "seeded successfully!"
