@@ -126,4 +126,8 @@ describe "Unmotivational Posters API", type: :request do
     expect(new_poster[:vintage]).to eq(poster_params[:vintage])
     expect(new_poster[:img_url]).to eq(poster_params[:img_url])
   end
+
+  it "can update exiting poster" do
+
+  end
 end
