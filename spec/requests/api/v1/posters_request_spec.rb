@@ -26,7 +26,7 @@ describe "Unmotivational Posters API", type: :request do
       vintage: true,
       img_url:  "./assets/regret.jpg")
   end
-
+  
   it "sends a list of unmotivational posters" do
     get '/api/v1/posters'
 
@@ -125,5 +125,35 @@ describe "Unmotivational Posters API", type: :request do
     expect(new_poster[:year]).to eq(poster_params[:year])
     expect(new_poster[:vintage]).to eq(poster_params[:vintage])
     expect(new_poster[:img_url]).to eq(poster_params[:img_url])
+  end
+  it "can update exiting poster" do
+    id = Poster.create(
+      name: "DEFEAT",
+      description: "It's too late to start now.",
+      price: 35.00,
+      year: 2023,
+      vintage: false,
+      img_url:  "./assets/defeat.jpg").id
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    
+    poster_params = {name:"DETERMINATION"}
+
+    patch "/api/v1/posters/#{id}", headers: headers, params: JSON.generate({poster: poster_params})
+    
+    poster = Poster.find_by(id: id)
+    
+    expect(response).to be_successful
+    expect(poster.name).to_not eq("DEFEAT")
+    expect(poster.name).to eq("DETERMINATION")
+  end
+
+  it "can delete a poster"do
+    poster = Poster.last
+    
+    delete "/api/v1/posters/#{poster.id}"
+    
+    expect(response).to be_successful
+    expect(Poster.all).to_not include(poster)
   end
 end
