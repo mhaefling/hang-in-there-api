@@ -14,7 +14,6 @@ class PosterSerializer
   end
   
   def self.format_posters(posters)
-    # binding.pry
     { data:
         posters.map do |poster|
           format_poster(poster)
