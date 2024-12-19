@@ -1,6 +1,7 @@
 class Api::V1::PostersController < ApplicationController
   def index
-    posters = Poster.all
+    sort_order = params[:sort] == 'desc' ? 'desc' : 'asc'
+    posters = Poster.order(created_at: sort_order)
     render json: PosterSerializer.format_posters(posters)
   end
 
@@ -22,12 +23,6 @@ class Api::V1::PostersController < ApplicationController
   
   def destroy
     Poster.find(params[:id]).destroy
-  end
-
-  def sort
-    sort_order = params[:sort] 
-    posters = Poster.order(created_at: sort_order)
-    render json: PosterSerializer.format_posters(posters)  
   end
 
   private
