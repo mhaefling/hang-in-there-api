@@ -10,7 +10,7 @@ describe "Unmotivational Posters API", type: :request do
       vintage: true,
       img_url: "./assets/failure.jpg")
   
-      Poster.create(
+    Poster.create(
       name: "MEDIOCRITY",
       description: "Dreams are just that—dreams.",
       price: 127.00,
@@ -18,7 +18,7 @@ describe "Unmotivational Posters API", type: :request do
       vintage: false,
       img_url: "./assets/mediocrity.jpg")
   
-      Poster.create(
+    Poster.create(
       name: "REGRET",
       description: "Hard work rarely pays off.",
       price: 89.00,
@@ -33,7 +33,9 @@ describe "Unmotivational Posters API", type: :request do
     expect(response).to be_successful
 
     posters = JSON.parse(response.body, symbolize_names: true)
-    expect(posters[:data].count).to eq(3)
+      expect(posters[:data].count).to eq(3)
+      expect(posters[:meta][:count]).to be_an(Integer)
+      expect(posters[:meta][:count]).to eq(3)
     
     posters[:data].each do |poster|
       expect(poster).to have_key(:id)
@@ -120,12 +122,14 @@ describe "Unmotivational Posters API", type: :request do
   
     expect(response).to be_successful
     expect(new_poster[:name]).to eq(poster_params[:name])
+    expect(new_poster[:name]).to eq("FUTILITY")
     expect(new_poster[:description]).to eq(poster_params[:description])
     expect(new_poster[:price]).to eq(poster_params[:price])
     expect(new_poster[:year]).to eq(poster_params[:year])
     expect(new_poster[:vintage]).to eq(poster_params[:vintage])
     expect(new_poster[:img_url]).to eq(poster_params[:img_url])
   end
+
   it "can update exiting poster" do
     id = Poster.create(
       name: "DEFEAT",
@@ -177,5 +181,145 @@ describe "Unmotivational Posters API", type: :request do
     created_at_dates = posters[:data].map { |poster| poster[:attributes][:created_at] }
   
     expect(created_at_dates).to eq(created_at_dates.sort.reverse)
+  end
+
+  it "can fetch a poster by name" do
+
+    get "/api/v1/posters?name=gre"
+    expect(response).to be_successful
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+    expect(poster[:data].count).to eq(1)
+    expect(poster[:meta][:count]).to be_an(Integer)
+    expect(poster[:meta][:count]).to eq(1)
+
+    test_poster = poster[:data][0]
+
+    expect(test_poster).to have_key(:id)
+    expect(test_poster[:id]).to be_an(Integer)
+
+    expect(test_poster).to have_key(:type)
+    expect(test_poster[:type]).to be_an(String)
+    expect(test_poster[:type]).to eq("poster")
+
+    expect(test_poster).to have_key(:attributes)
+    expect(test_poster[:attributes]).to be_an(Hash)
+
+    expect(test_poster[:attributes]).to have_key(:name)
+    expect(test_poster[:attributes][:name]).to be_a(String)
+    expect(test_poster[:attributes][:name]).to eq("REGRET")
+
+    expect(test_poster[:attributes]).to have_key(:price)
+    expect(test_poster[:attributes][:price]).to be_a(Float)
+    expect(test_poster[:attributes][:price]).to eq(89.00)
+
+    expect(test_poster[:attributes]).to have_key(:year)
+    expect(test_poster[:attributes][:year]).to be_a(Integer)
+    expect(test_poster[:attributes][:year]).to eq(2018)
+
+    expect(test_poster[:attributes]).to have_key(:vintage)
+    expect(test_poster[:attributes][:vintage]).to be_in([true, false])
+    expect(test_poster[:attributes][:vintage]).to eq(true)
+
+    expect(test_poster[:attributes]).to have_key(:img_url)
+    expect(test_poster[:attributes][:img_url]).to be_a(String)
+    expect(test_poster[:attributes][:img_url]).to eq("./assets/regret.jpg")
+  end
+
+  it "can find multiple posters by name" do
+    get "/api/v1/posters?name=re"
+    expect(response).to be_successful
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+    expect(poster[:data].count).to eq(2)
+    expect(poster[:meta][:count]).to be_an(Integer)
+    expect(poster[:meta][:count]).to eq(2)
+
+    test_poster1 = poster[:data][0]
+    test_poster2 = poster[:data][1]
+    
+
+    expect(test_poster1).to have_key(:id)
+    expect(test_poster2).to have_key(:id)
+    expect(test_poster1[:id]).to be_an(Integer)
+    expect(test_poster2[:id]).to be_an(Integer)
+
+    expect(test_poster1).to have_key(:type)
+    expect(test_poster2).to have_key(:type)
+    expect(test_poster1[:type]).to be_an(String)
+    expect(test_poster2[:type]).to be_an(String)
+    expect(test_poster1[:type]).to eq("poster")
+    expect(test_poster2[:type]).to eq("poster")
+
+    expect(test_poster1).to have_key(:attributes)
+    expect(test_poster2).to have_key(:attributes)
+    expect(test_poster1[:attributes]).to be_an(Hash)
+    expect(test_poster2[:attributes]).to be_an(Hash)
+
+    expect(test_poster1[:attributes]).to have_key(:name)
+    expect(test_poster2[:attributes]).to have_key(:name)
+    expect(test_poster1[:attributes][:name]).to be_a(String)
+    expect(test_poster2[:attributes][:name]).to be_a(String)
+    expect(test_poster1[:attributes][:name]).to eq("FAILURE")
+    expect(test_poster2[:attributes][:name]).to eq("REGRET")
+
+
+    expect(test_poster1[:attributes]).to have_key(:price)
+    expect(test_poster2[:attributes]).to have_key(:price)
+    expect(test_poster1[:attributes][:price]).to be_a(Float)
+    expect(test_poster2[:attributes][:price]).to be_a(Float)
+    expect(test_poster1[:attributes][:price]).to eq(68.00)
+    expect(test_poster2[:attributes][:price]).to eq(89.00)
+
+    expect(test_poster1[:attributes]).to have_key(:year)
+    expect(test_poster2[:attributes]).to have_key(:year)
+    expect(test_poster1[:attributes][:year]).to be_a(Integer)
+    expect(test_poster2[:attributes][:year]).to be_a(Integer)
+    expect(test_poster1[:attributes][:year]).to eq(2019)
+    expect(test_poster2[:attributes][:year]).to eq(2018)
+
+    expect(test_poster1[:attributes]).to have_key(:vintage)
+    expect(test_poster2[:attributes]).to have_key(:vintage)
+    expect(test_poster1[:attributes][:vintage]).to be_in([true, false])
+    expect(test_poster2[:attributes][:vintage]).to be_in([true, false])
+    expect(test_poster1[:attributes][:vintage]).to eq(true)
+    expect(test_poster2[:attributes][:vintage]).to eq(true)
+
+    expect(test_poster1[:attributes]).to have_key(:img_url)
+    expect(test_poster2[:attributes]).to have_key(:img_url)
+    expect(test_poster1[:attributes][:img_url]).to be_a(String)
+    expect(test_poster2[:attributes][:img_url]).to be_a(String)
+    expect(test_poster1[:attributes][:img_url]).to eq("./assets/failure.jpg")
+    expect(test_poster2[:attributes][:img_url]).to eq("./assets/regret.jpg")
+  end
+
+  it "can fetch a poster by min_price" do
+    get "/api/v1/posters?min_price=70"
+    expect(response).to be_successful
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+    expect(poster[:data].count).to eq(2)
+    expect(poster[:meta][:count]).to be_an(Integer)
+    expect(poster[:meta][:count]).to eq(2)
+  end
+
+  it "returns an empty dataset if no min_price matches" do
+    get "/api/v1/posters?min_price=2000"
+    expect(response).to be_successful
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+    expect(poster[:data].count).to eq(0)
+    expect(poster[:meta][:count]).to be_an(Integer)
+    expect(poster[:meta][:count]).to eq(0)
+  end
+
+  it "can fetch a poster by max_price" do
+    get "/api/v1/posters?max_price=75"
+    expect(response).to be_successful
+
+    poster = JSON.parse(response.body, symbolize_names: true)
+    expect(poster[:data].count).to eq(1)
+    expect(poster[:meta][:count]).to be_an(Integer)
+    expect(poster[:meta][:count]).to eq(1)
   end
 end
