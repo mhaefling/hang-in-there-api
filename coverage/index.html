@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-18T15:32:13-08:00">2024-12-18T15:32:13-08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-12-19T10:54:46-08:00">2024-12-19T10:54:46-08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -29,7 +29,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.1
+         1.36
        </span>
     </span> hits/line
     )
@@ -42,8 +42,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>78</b> relevant lines,
-    <span class="green"><b>78</b> lines covered</span> and
+    <b>81</b> relevant lines,
+    <span class="green"><b>81</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -72,11 +72,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#516a66df949acca3ae1d4b27f87c3589b4307b9a" class="src_link" title="app/controllers/api/v1/posters_controller.rb">app/controllers/api/v1/posters_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">32</td>
-            <td class="cell--number">19</td>
-            <td class="cell--number">19</td>
+            <td class="cell--number">37</td>
+            <td class="cell--number">22</td>
+            <td class="cell--number">22</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.05</td>
+            <td class="cell--number">1.36</td>
             
           </tr>
         
@@ -120,7 +120,7 @@
             <td class="cell--number">6</td>
             <td class="cell--number">6</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.17</td>
+            <td class="cell--number">4.50</td>
             
           </tr>
         
@@ -243,8 +243,8 @@
     
 
     <div class="t-line-summary">
-      <b>19</b> relevant lines.
-      <span class="green"><b>19</b> lines covered</span> and
+      <b>22</b> relevant lines.
+      <span class="green"><b>22</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -280,14 +280,14 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="3">
+          <li class="covered" data-hits="3" data-linenumber="3">
             
-              <span class="hits">1</span>
-            
-
+              <span class="hits">3</span>
             
 
-            <code class="ruby">    posters = Poster.all</code>
+            
+
+            <code class="ruby">    if params[:sort] == &#39;desc&#39;</code>
           </li>
         </div>
       
@@ -299,7 +299,7 @@
 
             
 
-            <code class="ruby">    render json: PosterSerializer.format_posters(posters)</code>
+            <code class="ruby">      sort_order = &#39;desc&#39;</code>
           </li>
         </div>
       
@@ -309,53 +309,53 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    else</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="6">
+          <li class="covered" data-hits="2" data-linenumber="6">
+            
+              <span class="hits">2</span>
             
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">      sort_order = &#39;asc&#39;</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="7">
-            
-              <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="7">
             
 
             
 
-            <code class="ruby">  def show</code>
+            <code class="ruby">    end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
+          <li class="covered" data-hits="3" data-linenumber="8">
             
-              <span class="hits">1</span>
-            
-
+              <span class="hits">3</span>
             
 
-            <code class="ruby">    poster = Poster.find(params[:id])</code>
+            
+
+            <code class="ruby">    posters = Poster.order(created_at: sort_order)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="9">
+          <li class="covered" data-hits="3" data-linenumber="9">
             
-              <span class="hits">1</span>
-            
-
+              <span class="hits">3</span>
             
 
-            <code class="ruby">    render json: {data: PosterSerializer.format_poster(poster)}</code>
+            
+
+            <code class="ruby">    render json: PosterSerializer.format_posters(posters)</code>
           </li>
         </div>
       
@@ -387,7 +387,7 @@
 
             
 
-            <code class="ruby">  def create</code>
+            <code class="ruby">  def show</code>
           </li>
         </div>
       
@@ -399,7 +399,7 @@
 
             
 
-            <code class="ruby">    new_poster = Poster.create(poster_params)</code>
+            <code class="ruby">    poster = Poster.find(params[:id])</code>
           </li>
         </div>
       
@@ -411,7 +411,7 @@
 
             
 
-            <code class="ruby">    render json: PosterSerializer.format_poster(new_poster)</code>
+            <code class="ruby">    render json: {data: PosterSerializer.format_poster(poster)}</code>
           </li>
         </div>
       
@@ -443,7 +443,7 @@
 
             
 
-            <code class="ruby">  def update</code>
+            <code class="ruby">  def create</code>
           </li>
         </div>
       
@@ -455,7 +455,7 @@
 
             
 
-            <code class="ruby">    poster = Poster.find(params[:id])</code>
+            <code class="ruby">    new_poster = Poster.create(poster_params)</code>
           </li>
         </div>
       
@@ -467,24 +467,12 @@
 
             
 
-            <code class="ruby">    poster.update(poster_params)</code>
+            <code class="ruby">    render json: PosterSerializer.format_poster(new_poster)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="20">
-            
-              <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    render json: {data: PosterSerializer.format_poster(poster)}</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="21">
+          <li class="never" data-hits="" data-linenumber="20">
             
 
             
@@ -494,12 +482,24 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="22">
+          <li class="never" data-hits="" data-linenumber="21">
             
 
             
 
-            <code class="ruby">  </code>
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="22">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def update</code>
           </li>
         </div>
       
@@ -511,7 +511,7 @@
 
             
 
-            <code class="ruby">  def destroy</code>
+            <code class="ruby">    poster = Poster.find(params[:id])</code>
           </li>
         </div>
       
@@ -523,17 +523,19 @@
 
             
 
-            <code class="ruby">    Poster.find(params[:id]).destroy</code>
+            <code class="ruby">    poster.update(poster_params)</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="25">
+          <li class="covered" data-hits="1" data-linenumber="25">
+            
+              <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">    render json: {data: PosterSerializer.format_poster(poster)}</code>
           </li>
         </div>
       
@@ -543,29 +545,29 @@
 
             
 
-            <code class="ruby"></code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="27">
+          <li class="never" data-hits="" data-linenumber="27">
+            
+
+            
+
+            <code class="ruby">  </code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="28">
             
               <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  private</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="28">
-            
-
-            
-
-            <code class="ruby"></code>
+            <code class="ruby">  def destroy</code>
           </li>
         </div>
       
@@ -577,12 +579,66 @@
 
             
 
+            <code class="ruby">    Poster.find(params[:id]).destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="30">
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="31">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="32">
+            
+              <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="33">
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="34">
+            
+              <span class="hits">1</span>
+            
+
+            
+
             <code class="ruby">  def poster_params</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="30">
+          <li class="covered" data-hits="2" data-linenumber="35">
             
               <span class="hits">2</span>
             
@@ -594,7 +650,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="31">
+          <li class="never" data-hits="" data-linenumber="36">
             
 
             
@@ -604,7 +660,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="32">
+          <li class="never" data-hits="" data-linenumber="37">
             
 
             
@@ -850,9 +906,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="3">
+          <li class="covered" data-hits="3" data-linenumber="3">
             
-              <span class="hits">1</span>
+              <span class="hits">3</span>
             
 
             
@@ -872,9 +928,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="3" data-linenumber="5">
+          <li class="covered" data-hits="9" data-linenumber="5">
             
-              <span class="hits">3</span>
+              <span class="hits">9</span>
             
 
             
@@ -976,9 +1032,9 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="6" data-linenumber="15">
+          <li class="covered" data-hits="12" data-linenumber="15">
             
-              <span class="hits">6</span>
+              <span class="hits">12</span>
             
 
             
@@ -3019,7 +3075,7 @@
 
             
 
-            <code class="ruby">  get &quot;up&quot; =&gt; &quot;rails/health#show&quot;,  as: :rails_health_check</code>
+            <code class="ruby">  get &quot;up&quot; =&gt; &quot;rails/health#show&quot;, as: :rails_health_check</code>
           </li>
         </div>
       
@@ -3031,7 +3087,7 @@
 
             
 
-            <code class="ruby">  get &quot;/api/v1/posters&quot;,            to: &quot;api/v1/posters#index&quot;</code>
+            <code class="ruby">  get &quot;/api/v1/posters&quot;,           to: &quot;api/v1/posters#index&quot;</code>
           </li>
         </div>
       
@@ -3043,7 +3099,7 @@
 
             
 
-            <code class="ruby">  get &quot;/api/v1/posters/:id&quot;,        to: &quot;api/v1/posters#show&quot;</code>
+            <code class="ruby">  get &quot;/api/v1/posters/:id&quot;,       to: &quot;api/v1/posters#show&quot;</code>
           </li>
         </div>
       
@@ -3055,7 +3111,7 @@
 
             
 
-            <code class="ruby">  post &quot;/api/v1/posters&quot;,           to: &quot;api/v1/posters#create&quot;</code>
+            <code class="ruby">  post &quot;/api/v1/posters&quot;,          to: &quot;api/v1/posters#create&quot;</code>
           </li>
         </div>
       
@@ -3067,7 +3123,7 @@
 
             
 
-            <code class="ruby">  patch &quot;/api/v1/posters/:id&quot;,      to: &quot;api/v1/posters#update&quot;</code>
+            <code class="ruby">  patch &quot;/api/v1/posters/:id&quot;,     to: &quot;api/v1/posters#update&quot;</code>
           </li>
         </div>
       
@@ -3079,7 +3135,7 @@
 
             
 
-            <code class="ruby">  delete &quot;/api/v1/posters/:id&quot;,     to: &quot;api/v1/posters#destroy&quot;</code>
+            <code class="ruby">  delete &quot;/api/v1/posters/:id&quot;,    to: &quot;api/v1/posters#destroy&quot;</code>
           </li>
         </div>
       
