@@ -8,7 +8,7 @@ class Api::V1::PostersController < ApplicationController
     posters = Poster.order(created_at: sort_order)
     
     if params[:name].present?
-      posters = Poster.where("name ILIKE ?", "%#{params[:name]}%")
+      posters = Poster.where("name ILIKE ?", "%#{params[:name]}%").order(:name)
     elsif params[:min_price].present?
       posters = Poster.where("price >= ?", params[:min_price].to_f)
     elsif params[:max_price].present?
@@ -27,7 +27,7 @@ class Api::V1::PostersController < ApplicationController
 
   def create
     new_poster = Poster.create(poster_params)
-    render json: PosterSerializer.format_poster(new_poster)
+    render json: PosterSerializer.single_poster_json(new_poster)
   end
 
   def update
