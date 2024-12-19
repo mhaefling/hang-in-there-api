@@ -156,4 +156,26 @@ describe "Unmotivational Posters API", type: :request do
     expect(response).to be_successful
     expect(Poster.all).to_not include(poster)
   end
+
+  it "can sort posters by created_at in ascending" do
+    get '/api/v1/posters', params: {sort: 'asc'}
+  
+    expect(response).to be_successful
+    posters = JSON.parse(response.body, symbolize_names: true)
+  
+    created_at_dates = posters[:data].map { |poster| poster[:attributes][:created_at] }
+  
+    expect(created_at_dates).to eq(created_at_dates.sort)
+  end
+  
+  it "can sort posters by created_at in descending" do
+    get '/api/v1/posters', params: {sort: 'desc'}
+  
+    expect(response).to be_successful
+    posters = JSON.parse(response.body, symbolize_names: true)
+  
+    created_at_dates = posters[:data].map { |poster| poster[:attributes][:created_at] }
+  
+    expect(created_at_dates).to eq(created_at_dates.sort.reverse)
+  end
 end
