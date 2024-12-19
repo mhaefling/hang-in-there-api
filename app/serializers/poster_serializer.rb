@@ -23,10 +23,4 @@ class PosterSerializer
         img_url: poster.img_url }
     }
   end
-
-  def self.sorted_format_posters(posters)
-    
-  end
-  
-  
 end
