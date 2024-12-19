@@ -226,7 +226,7 @@ describe "Unmotivational Posters API", type: :request do
     expect(test_poster[:attributes][:img_url]).to eq("./assets/regret.jpg")
   end
 
-  it "can find multiple posters by name" do
+  it "can find multiple posters by name and return them in alphabetical order" do
     get "/api/v1/posters?name=re"
     expect(response).to be_successful
 
