@@ -1,18 +1,13 @@
 class Api::V1::PostersController < ApplicationController
   def index
-    if params[:sort] == 'desc'
-      sort_order = 'desc'
-    else
-      sort_order = 'asc'
-    end
-    posters = Poster.order(created_at: sort_order)
-    
-    if params[:name].present?
-      posters = Poster.where("name ILIKE ?", "%#{params[:name]}%").order(:name)
+    if params[:sort].present?
+      posters = Poster.sorted(params[:sort])
+    elsif params[:name].present?
+      posters = Poster.sort_by_name(params[:name])
     elsif params[:min_price].present?
-      posters = Poster.where("price >= ?", params[:min_price].to_f)
+      posters = Poster.sort_by_min_price(params[:min_price])
     elsif params[:max_price].present?
-      posters = Poster.where("price <= ?", params[:max_price].to_f)
+      posters = Poster.sort_by_max_price(params[:max_price])
     else
       posters = Poster.all
     end
